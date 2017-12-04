@@ -1,0 +1,38 @@
+{
+  "name": "northcoders-news-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ./",
+    "posttest": "npm run lint",
+    "precommit": "npm test",
+    "test": "mocha ./spec/*.spec.js",
+    "start": "NODE_ENV=dev nodemon index.js"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arpithapatil/NC-News-BE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arpithapatil/NC-News-BE/issues"
+  },
+  "homepage": "https://github.com/arpithapatil/NC-News-BE#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chance": "^1.0.12",
+    "dotenv": "^4.0.0",
+    "eslint": "^4.12.1",
+    "express": "^4.16.2",
+    "log4js": "^2.3.12",
+    "mocha": "^4.0.1",
+    "moment": "^2.19.3",
+    "mongoose": "^4.13.6",
+    "supertest": "^3.0.0",
+    "underscore": "^1.8.3"
+  }
+}
