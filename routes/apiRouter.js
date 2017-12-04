@@ -4,6 +4,11 @@ const articlesRouter = require('./articlesRouter');
 const commentsRouter = require('./commentsRouter'); 
 const usersRouter = require('./usersRouter'); 
 
+router.get('/', (req, res) => {
+  res.status(200).send({status: 'api route'});
+});
+
+
 
 router.use('/topics', topicsRouter); 
 router.use('/articles', articlesRouter);
