@@ -6,6 +6,7 @@ const config = require('./config');
 const db = config.DB[process.env.NODE_ENV] || process.env.DB;
 
 mongoose.Promise = Promise;
+const apiRouter = require('./routes/apiRouter');
 
 mongoose.connect(db, { useMongoClient: true })
   .then(() => console.log('successfully connected to', db))
@@ -13,6 +14,8 @@ mongoose.connect(db, { useMongoClient: true })
 
 
 app.use(bodyParser.json()); 
+
+app.use('/api', apiRouter); 
 
 
 
