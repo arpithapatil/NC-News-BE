@@ -1,18 +1,24 @@
-const Topics = require('../models/topics');
+const {Topics, Articles} = require('../models/models');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/northcoders-news-api', { useMongoClient: true });
-mongoose.Promise = Promise;
 
 
 const getAllTopics = (req, res, next) => {
   return Topics
     .find()
     .then(topics => {
-      console.log(topics);
       res.status(200).send({topics});
     })
     .catch(err => next(err));
 };
 
+const getArticlesByTopic = (req, res, next) => {
+  return Articles 
+    .find({belongs_to: req.params.topic})
+    .then(articles => {
+      res.status(200).send({articles});
+    })
+    .catch(err => next(err));
 
-module.exports = {getAllTopics};
+};
+
+module.exports = {getAllTopics, getArticlesByTopic};

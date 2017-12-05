@@ -5,7 +5,7 @@ const supertest = require('supertest');
 const request = supertest(app);
 const { expect } = require('chai');
 const saveTestData = require('../seed/test.seed');
-// const { Articles, Comments, Users, Topics } = require('../models/models');
+
 
 describe('API', () => {
   let userData;
@@ -27,7 +27,7 @@ describe('API', () => {
         });
     });
   });
-  describe('GET /TOPICS', () => {
+  describe('GET api/topics', () => {
     it('responds the correct object with a status code of 200', () => {
       return request
         .get('/api/topics')
@@ -39,4 +39,17 @@ describe('API', () => {
         });
     });
   });
+  describe('GET api/topics/:topic_id/articles', () => {
+    it('responds the correct object with a status code of 200', () => {
+      return request 
+        .get('/api/topics/football/articles')
+        .expect(200)
+        .then(res => {
+          expect(res.body.articles).to.be.an('array');
+          expect(res.body.articles.length).to.equal(1);
+          expect(res.body.articles[0].belongs_to).to.equal('football');
+        });
+    });
+  });
+
 });
