@@ -128,6 +128,15 @@ describe('API', () => {
           expect(res.body.vote.votes).to.equal(1);
         });
     });
+    it('decrements the vote count of the article by 1 when vote=down', () => {
+      return request
+        .put(`/api/articles/${usefulData.articles[1]._id}?vote=down`)
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('object');
+          expect(res.body.vote.votes).to.equal(-1);
+        });
+    });
   });
 
 });
