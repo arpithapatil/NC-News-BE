@@ -1,6 +1,4 @@
 const {Topics, Articles} = require('../models/models');
-const mongoose = require('mongoose');
-
 
 const getAllTopics = (req, res, next) => {
   return Topics
@@ -21,4 +19,14 @@ const getArticlesByTopic = (req, res, next) => {
 
 };
 
-module.exports = {getAllTopics, getArticlesByTopic};
+const getAllArticles = (req, res, next) => {
+  return Articles
+    .find()
+    .then(articles => {
+      res.status(200).send({articles});
+    })
+    .catch(err => next(err));
+};
+
+module.exports = {getAllTopics, getArticlesByTopic,getAllArticles};
+    

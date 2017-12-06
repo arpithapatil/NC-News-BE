@@ -8,12 +8,12 @@ const saveTestData = require('../seed/test.seed');
 
 
 describe('API', () => {
-  let userData;
+  let usefulData;
   beforeEach(() => {
     return mongoose.connection.dropDatabase()
       .then(saveTestData)
       .then((data) => {
-        userData = data;
+        usefulData = data;
       })
       .catch((err) => console.log('error', err));
   });
@@ -48,6 +48,19 @@ describe('API', () => {
           expect(res.body.articles).to.be.an('array');
           expect(res.body.articles.length).to.equal(1);
           expect(res.body.articles[0].belongs_to).to.equal('football');
+        });
+    });
+  });
+
+  describe('GET /api/articles', () => {
+    it('sends back the correct object with a status code of 200', () => {
+      return request
+        .get('/api/articles')
+        .expect(200)
+        .then(res => {
+          expect(res.body.articles).to.be.an('array');
+          expect(res.body.articles.length).to.equal(2);
+          expect(res.body.articles[0].title).to.be.a('string');
         });
     });
   });
