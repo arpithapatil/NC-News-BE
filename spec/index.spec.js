@@ -137,17 +137,29 @@ describe('API', () => {
           expect(res.body.vote.votes).to.equal(-1);
         });
     });
-    describe('PUT /api/comments/:comment_id', () => {
-      it('increments the vote count of the comment by 1 when vote=up', () => {
-        return request
-          .put(`/api/comments/${usefulData.comments[0]._id}?vote=up`)
-          .expect(200)
-          .then(res => {
-            expect(res.body).to.be.an('object');
-            expect(res.body.comment.votes).to.equal(1);
-          });
-      });
+  });
+
+
+  describe('PUT /api/comments/:comment_id', () => {
+    it('increments the vote count of the comment by 1 when vote=up', () => {
+      return request
+        .put(`/api/comments/${usefulData.comments[0]._id}?vote=up`)
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('object');
+          expect(res.body.comment.votes).to.equal(1);
+        });
     });
+    it('decrements the vote count of the comment by 1 when vote=down', () => {
+      return request
+        .put(`/api/comments/${usefulData.comments[0]._id}?vote=down`)
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('object');
+          expect(res.body.comment.votes).to.equal(-1);
+        });
+    });
+ 
   });
 });
 
