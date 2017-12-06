@@ -94,4 +94,19 @@ describe('API', () => {
     });
   });
 
+  describe('POST /api/articles/:article_id/comments', () => {
+    it('saves a new comment to the article with a status code of 201', () => {
+      return request
+        .post(`/api/articles/${usefulData.comments[0].belongs_to}/comments`)
+        .send({ body: 'This is my first comment', belongs_to: `${usefulData.comments[0].belongs_to}`, created_by: 'northcoders' })
+        .expect(201)
+        .then(res => {
+          expect(res.body).to.be.an('array');
+          expect(res.body.length).to.equal(3);
+          expect(res.body[2].body).to.be.a('string');
+          expect(res.body[2].body).to.equal('This is my first comment');
+        });
+    }); 
+  });
+
 });

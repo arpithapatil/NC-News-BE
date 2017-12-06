@@ -44,5 +44,19 @@ const getCommentsByArticle = (req, res, next) => {
 };
 
 
-module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle};
+const postCommentsByArticleId = (req, res, next) => {
+  new Comments({body:req.body.body, belongs_to: req.params.article_id, created_by: 'northcoders'})
+    .save()
+    .then((comment) => {
+      console.log(comment,'****');
+      return Comments.find({ belongs_to: comment.belongs_to });
+    })
+    .then((comments) => {
+      console.log(comments);
+      res.status(201).send(comments);
+    })
+    .catch(err => next(err));
+};
+
+module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle,postCommentsByArticleId};
     
