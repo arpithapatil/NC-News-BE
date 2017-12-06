@@ -61,5 +61,16 @@ const postCommentsByArticleId = (req, res, next) => {
     });
 };
 
-module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle,postCommentsByArticleId};
+const voteArticleByArticleId = (req, res, next) => {
+  let increment = 0;
+  if (req.query.vote === 'up') increment++;
+  if (req.query.vote === 'down') increment--;
+  return Articles.findByIdAndUpdate(req.params.article_id, { $inc: { votes: increment } }, { new: true })
+    .then(vote => {
+      res.send({vote}); 
+    })
+    .catch(err => next(err));    
+};
+
+module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle,postCommentsByArticleId,voteArticleByArticleId};
     

@@ -118,4 +118,16 @@ describe('API', () => {
     });
   });
 
+  describe('PUT /articles/:article_id', () => {
+    it('increments the vote count of the article by 1 when vote=up', () => {
+      return request
+        .put(`/api/articles/${usefulData.articles[0]._id}?vote=up`)
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('object');
+          expect(res.body.vote.votes).to.equal(1);
+        });
+    });
+  });
+
 });
