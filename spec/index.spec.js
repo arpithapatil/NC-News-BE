@@ -107,6 +107,15 @@ describe('API', () => {
           expect(res.body[2].body).to.equal('This is my first comment');
         });
     }); 
+    it('sends back a 400 response for a bad request', () => {
+      return request
+        .post('/api/articles/6345/comments')
+        .send({ body: 'This is my first comment', belongs_to: `${usefulData.comments[0].belongs_to}`, created_by: 'northcoders' })
+        .expect(400)
+        .then(res => {
+          expect(res.body.msg).to.equal('bad request');
+        });
+    });
   });
 
 });

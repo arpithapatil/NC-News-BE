@@ -55,7 +55,10 @@ const postCommentsByArticleId = (req, res, next) => {
       console.log(comments);
       res.status(201).send(comments);
     })
-    .catch(err => next(err));
+    .catch((err) => {
+      if (err.name === 'ValidationError') return next({ err, type: 400 });            
+      next(err);
+    });
 };
 
 module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle,postCommentsByArticleId};
