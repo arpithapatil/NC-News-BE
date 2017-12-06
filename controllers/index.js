@@ -85,5 +85,14 @@ const voteCommentByCommentId = (req, res, next) => {
     });
 };
 
-module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle,postCommentsByArticleId,voteArticleByArticleId,voteCommentByCommentId};
+const deleteCommentByCommentId = (req, res, next) => {
+  return Comments.findByIdAndRemove(req.params.comment_id)
+    .then((comment) =>
+      res.status(202).send({ comment_deleted: comment, message: 'deleted' }))
+    .catch(err => {
+      next(err);
+    });
+};
+
+module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle,postCommentsByArticleId,voteArticleByArticleId,voteCommentByCommentId,deleteCommentByCommentId};
     

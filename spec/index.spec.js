@@ -27,7 +27,7 @@ describe('API', () => {
         });
     });
   });
-  describe('GET api/topics', () => {
+  describe('GET /api/topics', () => {
     it('responds the correct object with a status code of 200', () => {
       return request
         .get('/api/topics')
@@ -39,7 +39,7 @@ describe('API', () => {
         });
     });
   });
-  describe('GET api/topics/:topic_id/articles', () => {
+  describe('GET /api/topics/:topic_id/articles', () => {
     it('responds the correct object with a status code of 200', () => {
       return request 
         .get(`/api/topics/${usefulData.articles[0].belongs_to}/articles`)
@@ -118,7 +118,7 @@ describe('API', () => {
     });
   });
 
-  describe('PUT api/articles/:article_id', () => {
+  describe('PUT /api/articles/:article_id', () => {
     it('increments the vote count of the article by 1 when vote=up', () => {
       return request
         .put(`/api/articles/${usefulData.articles[0]._id}?vote=up`)
@@ -160,6 +160,18 @@ describe('API', () => {
         });
     });
  
+  });
+
+  describe('DELETE /api/comments/:comment_id/', () => {
+    it('deletes a comment by comment ID', () => {
+      return request
+        .delete(`/api/comments/${usefulData.comments[0]._id}`)
+        .expect(202)
+        .then(res => {
+          expect(res.body.comment_deleted._id).to.equal(`${usefulData.comments[0]._id}`);
+          expect(res.body.message).to.equal('deleted');
+        });
+    });
   });
 });
 
