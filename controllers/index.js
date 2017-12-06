@@ -24,7 +24,6 @@ const getAllArticles = (req, res, next) => {
   return Articles
     .find()
     .then(articles => {
-      console.log(articles);
       res.status(200).send({articles});
     })
     .catch(err => next(err));
@@ -34,7 +33,6 @@ const getCommentsByArticleId = (req, res, next) => {
   return Comments
     .find({belongs_to: req.params.article_id})
     .then(comments => {
-      console.log(comments);
       res.status(200).send({comments});
     })
     .catch(err => {
@@ -48,11 +46,9 @@ const postCommentsByArticleId = (req, res, next) => {
   new Comments({body:req.body.body, belongs_to: req.params.article_id, created_by: 'northcoders'})
     .save()
     .then((comment) => {
-      console.log(comment,'****');
       return Comments.find({ belongs_to: comment.belongs_to });
     })
     .then((comments) => {
-      console.log(comments);
       res.status(201).send(comments);
     })
     .catch((err) => {

@@ -29,7 +29,7 @@ describe('API', () => {
     });
   });
   describe('GET /api/topics', () => {
-    it('responds the correct object with a status code of 200', () => {
+    it('returns the correct object with a status code of 200', () => {
       return request
         .get('/api/topics')
         .expect(200)
@@ -41,7 +41,7 @@ describe('API', () => {
     });
   });
   describe('GET /api/topics/:topic_id/articles', () => {
-    it('responds the correct object with a status code of 200', () => {
+    it('returns the correct object with a status code of 200', () => {
       return request 
         .get(`/api/topics/${usefulData.articles[0].belongs_to}/articles`)
         .expect(200)
@@ -51,7 +51,7 @@ describe('API', () => {
           expect(res.body.articles[0].belongs_to).to.equal('cats');
         });
     });
-    it('responds with a 404 response for an incorrect topic_id', () => {
+    it('returns with a 404 response for an incorrect topic_id', () => {
       return request
         .get('/api/topics/candycrush/articles')
         .expect(404)
@@ -62,7 +62,7 @@ describe('API', () => {
   });
 
   describe('GET /api/articles', () => {
-    it('sends back the correct object with a status code of 200', () => {
+    it('returns the correct object with a status code of 200', () => {
       return request
         .get('/api/articles')
         .expect(200)
@@ -75,7 +75,7 @@ describe('API', () => {
   });
 
   describe('GET /api/articles/:article_id/comments', () => {
-    it('sends back the correct object with a status code of 200', () => {
+    it('returns the correct object with a status code of 200', () => {
       return request
         .get(`/api/articles/${usefulData.articles[0]._id}/comments`)
         .expect(200)
@@ -85,7 +85,7 @@ describe('API', () => {
           expect(res.body.comments[0].body).to.be.a('string');
         });
     });
-    it('sends back a 404 response for an incorrect article_id', () => {
+    it('returns with a 404 response for an incorrect article_id', () => {
       return request
         .get('/api/articles/6345/comments')
         .expect(404)
@@ -108,7 +108,7 @@ describe('API', () => {
           expect(res.body[2].body).to.equal('This is my first comment');
         });
     }); 
-    it('sends back a 400 response for a bad request', () => {
+    it('returns with a 400 response for a bad request', () => {
       return request
         .post('/api/articles/6345/comments')
         .send({ body: 'This is my first comment', belongs_to: `${usefulData.comments[0].belongs_to}`, created_by: 'northcoder', votes: 0, created_at: Date.now() })
@@ -183,7 +183,7 @@ describe('API', () => {
             });
         });
     });
-    it('returns error message if incorrect parameter', () => {
+    it('returns with a 404 response for an incorrect parameter', () => {
       return request
         .delete('/api/comments/567')
         .expect(404)
@@ -193,7 +193,7 @@ describe('API', () => {
     });
   });
   describe('GET /api/users/:username', () => {
-    it('sends back the correct object with a status code of 200', () => {
+    it('returns the correct object with a status code of 200', () => {
       return request
         .get(`/api/users/${usefulData.user.username}`)
         .expect(200)
@@ -204,7 +204,7 @@ describe('API', () => {
           expect(res.body.user[0].username).to.be.a('string');
         });
     });
-    it('sends an error message if user doesn\'t exist', () => {
+    it('returns with a 404 response if user does not exist', () => {
       return request
         .get('/api/users/sandra')
         .expect(404)
