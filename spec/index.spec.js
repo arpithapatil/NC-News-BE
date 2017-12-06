@@ -170,6 +170,16 @@ describe('API', () => {
         .then(res => {
           expect(res.body.comment_deleted._id).to.equal(`${usefulData.comments[0]._id}`);
           expect(res.body.message).to.equal('deleted');
+        })
+        .then(() => {
+          return request
+            .get(`/api/articles/${usefulData.comments[0].belongs_to}/comments`)
+            .expect(200)
+            .then(res => {
+              expect(res.body.comments).to.be.an('array');
+              expect(res.body.comments.length).to.equal(1);
+              expect(res.body.comments[0].body).to.be.a('string');
+            });
         });
     });
   });
