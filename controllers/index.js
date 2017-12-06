@@ -90,6 +90,7 @@ const deleteCommentByCommentId = (req, res, next) => {
     .then((comment) =>
       res.status(202).send({ comment_deleted: comment, message: 'deleted' }))
     .catch(err => {
+      if (err.name === 'CastError') return next({ err, type: 404 });            
       next(err);
     });
 };

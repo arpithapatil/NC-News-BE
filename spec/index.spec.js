@@ -7,6 +7,7 @@ const { expect } = require('chai');
 const saveTestData = require('../seed/test.seed');
 
 
+
 describe('API', () => {
   let usefulData;
   beforeEach(() => {
@@ -180,6 +181,14 @@ describe('API', () => {
               expect(res.body.comments.length).to.equal(1);
               expect(res.body.comments[0].body).to.be.a('string');
             });
+        });
+    });
+    it('returns error message if incorrect parameter', () => {
+      return request
+        .delete('/api/comments/567')
+        .expect(404)
+        .then(res => {
+          expect(res.body.msg).to.equal('page not found');
         });
     });
   });
