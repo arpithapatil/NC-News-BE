@@ -37,7 +37,10 @@ const getCommentsByArticle = (req, res, next) => {
       console.log(comments);
       res.status(200).send({comments});
     })
-    .catch(err => next(err));
+    .catch(err => {
+      if (err.name === 'CastError') return next({ err, type: 404 });            
+      next(err);
+    });
 };
 
 

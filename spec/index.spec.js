@@ -50,7 +50,7 @@ describe('API', () => {
           expect(res.body.articles[0].belongs_to).to.equal('cats');
         });
     });
-    it('responds with a 404 response for an incorrect topic', () => {
+    it('responds with a 404 response for an incorrect topic_id', () => {
       return request
         .get('/api/topics/candycrush/articles')
         .expect(404)
@@ -82,6 +82,14 @@ describe('API', () => {
           expect(res.body.comments).to.be.an('array');
           expect(res.body.comments.length).to.equal(2);
           expect(res.body.comments[0].body).to.be.a('string');
+        });
+    });
+    it('sends back a 404 response for an incorrect article_id', () => {
+      return request
+        .get('/api/articles/6345/comments')
+        .expect(404)
+        .then(res => {
+          expect(res.body.msg).to.equal('page not found');
         });
     });
   });
