@@ -110,7 +110,7 @@ describe('API', () => {
     it('sends back a 400 response for a bad request', () => {
       return request
         .post('/api/articles/6345/comments')
-        .send({ body: 'This is my first comment', belongs_to: `${usefulData.comments[0].belongs_to}`, created_by: 'northcoders' })
+        .send({ body: 'This is my first comment', belongs_to: `${usefulData.comments[0].belongs_to}`, created_by: 'northcoder', votes: 0, created_at: Date.now() })
         .expect(400)
         .then(res => {
           expect(res.body.msg).to.equal('bad request');
@@ -118,7 +118,7 @@ describe('API', () => {
     });
   });
 
-  describe('PUT /articles/:article_id', () => {
+  describe('PUT api/articles/:article_id', () => {
     it('increments the vote count of the article by 1 when vote=up', () => {
       return request
         .put(`/api/articles/${usefulData.articles[0]._id}?vote=up`)
@@ -137,6 +137,17 @@ describe('API', () => {
           expect(res.body.vote.votes).to.equal(-1);
         });
     });
+    describe('PUT /api/comments/:comment_id', () => {
+      it('increments the vote count of the comment by 1 when vote=up', () => {
+        return request
+          .put(`/api/comments/${usefulData.comments[0]._id}?vote=up`)
+          .expect(200)
+          .then(res => {
+            expect(res.body).to.be.an('object');
+            expect(res.body.comment.votes).to.equal(1);
+          });
+      });
+    });
   });
-
 });
+

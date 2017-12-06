@@ -1,4 +1,7 @@
 const router = require('express').Router(); 
+const {voteCommentByCommentId} = require('../controllers');
 
 
-module.exports = router; 
+router.put('/:comment_id', voteCommentByCommentId);
+
+module.exports = router;

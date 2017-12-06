@@ -72,5 +72,18 @@ const voteArticleByArticleId = (req, res, next) => {
     .catch(err => next(err));    
 };
 
-module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle,postCommentsByArticleId,voteArticleByArticleId};
+const voteCommentByCommentId = (req, res, next) => {
+  let increment = 0;
+  if (req.query.vote === 'up') increment++;
+  if (req.query.vote === 'down') increment--;
+  return Comments.findByIdAndUpdate(req.params.comment_id, { $inc: { votes: increment } }, { new: true })
+    .then((comment) => {
+      res.send({comment});
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle,postCommentsByArticleId,voteArticleByArticleId,voteCommentByCommentId};
     
