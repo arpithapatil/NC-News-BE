@@ -13,6 +13,7 @@ const getArticlesByTopic = (req, res, next) => {
   return Articles 
     .find({belongs_to: req.params.topic})
     .then(articles => {
+      if (articles.length === 0) return next({type: 404, msg: 'page not found'});
       res.status(200).send({articles});
     })
     .catch(err => next(err));
