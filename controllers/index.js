@@ -98,6 +98,7 @@ const deleteCommentByCommentId = (req, res, next) => {
 const getProfileDataByUsername = (req, res, next) => {
   return Users.find({ username: req.params.username })
     .then(user => {
+      if (user.length === 0) return next({ type: 404 });
       res.send({ user });
     })
     .catch(err => {

@@ -204,6 +204,14 @@ describe('API', () => {
           expect(res.body.user[0].username).to.be.a('string');
         });
     });
+    it('sends an error message if user doesn\'t exist', () => {
+      return request
+        .get('/api/users/sandra')
+        .expect(404)
+        .then(res => {
+          expect(res.body.msg).to.equal('page not found');
+        });
+    });
   });
 });
 
