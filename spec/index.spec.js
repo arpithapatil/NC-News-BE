@@ -183,5 +183,19 @@ describe('API', () => {
         });
     });
   });
+  describe('GET /api/users/:username', () => {
+    it('sends back the correct object with a status code of 200', () => {
+      return request
+        .get(`/api/users/${usefulData.user.username}`)
+        .expect(200)
+        .then(res => {
+          expect(res.body.user).to.be.an('array');
+          expect(res.body.user.length).to.equal(1);
+          expect(res.body.user[0].name).to.equal('Awesome Northcoder');
+          expect(res.body.user[0].username).to.be.a('string');
+        });
+    });
+  });
 });
+
 

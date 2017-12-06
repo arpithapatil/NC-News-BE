@@ -1,4 +1,4 @@
-const {Topics, Articles, Comments} = require('../models/models');
+const {Topics, Articles, Comments, Users} = require('../models/models');
 
 const getAllTopics = (req, res, next) => {
   return Topics
@@ -30,7 +30,7 @@ const getAllArticles = (req, res, next) => {
     .catch(err => next(err));
 };
 
-const getCommentsByArticle = (req, res, next) => {
+const getCommentsByArticleId = (req, res, next) => {
   return Comments
     .find({belongs_to: req.params.article_id})
     .then(comments => {
@@ -94,5 +94,14 @@ const deleteCommentByCommentId = (req, res, next) => {
     });
 };
 
-module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticle,postCommentsByArticleId,voteArticleByArticleId,voteCommentByCommentId,deleteCommentByCommentId};
+const getProfileDataByUsername = (req, res, next) => {
+  return Users.find({ username: req.params.username })
+    .then(user => {
+      res.send({ user });
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+module.exports = {getAllTopics, getArticlesByTopic,getAllArticles,getCommentsByArticleId,postCommentsByArticleId,voteArticleByArticleId,voteCommentByCommentId,deleteCommentByCommentId,getProfileDataByUsername};
     
