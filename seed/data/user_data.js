@@ -6,4 +6,3 @@ module.exports = [
   {username: 'weegembump', name: 'Gemma Bump', avatar_url: 'http://www.upandrunning.co.uk/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/m/r/mr-bump.jpg'},
   {username: 'jessjelly', name: 'Jess Jelly', avatar_url: 'https://s-media-cache-ak0.pinimg.com/564x/39/62/ec/3962eca164e60cf46f979c1f57d4078b.jpg'}
 ];
-  

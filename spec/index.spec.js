@@ -16,7 +16,10 @@ describe('API', () => {
       .then((data) => {
         usefulData = data;
       })
-      .catch((err) => console.log('error', err));
+      .catch((err) => console.log('error', err));    
+  });
+  after(() => {
+    mongoose.disconnect();
   });
   describe('GET /api', () => {
     it('returns response with 200 status code', () => {
