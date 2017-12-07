@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 module.exports = {
   DB: {
     test: 'mongodb://localhost/northcoders-news-api-test',
-    dev: 'mongodb://localhost/northcoders-news-api'
+    dev: process.env.MONGO_URI || 'mongodb://localhost/northcoders-news-api-dev'
   },
   PORT: {
     test: 3090,
-    dev: 3000
+    dev: process.env.PORT || 3000
   }
 };

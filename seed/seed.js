@@ -1,4 +1,4 @@
-const models = require('../models');
+const models = require('../models/models');
 const userData = require('./data/user_data.js');
 const articleData = require('./data/articles');
 const Chance = require('chance');

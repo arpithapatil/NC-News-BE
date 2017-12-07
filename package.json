@@ -19,10 +19,16 @@
   "bugs": {
     "url": "https://github.com/arpithapatil/NC-News-BE/issues"
   },
+  "engines": {
+    "node": "6.12.0"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
   "homepage": "https://github.com/arpithapatil/NC-News-BE#readme",
   "dependencies": {
     "async": "^2.6.0",
-    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chance": "^1.0.12",
