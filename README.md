@@ -1,6 +1,6 @@
 # Northcoders News BE
 
-This project is for creating an API for a reddit style news website using Node.js, Express.js, MongoDB and Mongoose.
+This project is for creating an API for a reddit style news website using Node.js, Express.js, MongoDB and Mongoose.This project is a RESTful API for Northcoders News, a news aggregation site.The link to see the deployed version of the project is [here](https://arpitha-patil-nc-news-backend.herokuapp.com/)
 
 # SetUp
 
