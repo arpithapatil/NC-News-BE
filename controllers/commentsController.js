@@ -13,7 +13,7 @@ const voteCommentById = (req, res, next) => {
       res.send({ comment });
     })
     .catch(error => {
-      if (error.name === 'CastError') return next({ status: 404, message: 'Comment not found' });
+      if (error.name === 'CastError') return next({ status: 400, message: 'Comment not found' });
       next(error);
     });
 };
@@ -25,7 +25,7 @@ const deleteCommentById = (req, res, next) => {
       res.status(204).send();
     })
     .catch(error => {
-      if (error.name === 'CastError') return next({ status: 404, message: 'Comment not found' });
+      if (error.name === 'CastError') return next({ status: 400, message: 'Comment not found' });
       next(error);
     });
 };

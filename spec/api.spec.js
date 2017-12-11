@@ -27,6 +27,14 @@ describe('api', () => {
         });
     });
   });
+
+  describe('GET /*', () => {
+    it('returns 404 for bad requests', () => {
+      return request(app)
+        .get('/milk')
+        .expect(404);
+    });
+  });
   describe('GET /api/topics', () => {
     it('returns an array of topics with a status code of 200', () => {
       return request(app)
@@ -214,10 +222,10 @@ describe('api', () => {
           expect(newVotes).to.equal(votes - 1);
         });
     });
-    it('returns a 404 error if parameter is not a valid comment id', () => {
+    it('returns a 400 error if parameter is not a valid comment id', () => {
       return request(app)
         .put('/api/comments/apple?vote=down')
-        .expect(404)
+        .expect(400)
         .then((res) => {
           const error = res.body.message;
           expect(error).to.equal('Comment not found');
@@ -235,10 +243,10 @@ describe('api', () => {
           expect(newVotes).to.equal(votes + 1);
         });
     });
-    it('returns a 404 error if parameter is not a valid comment id', () => {
+    it('returns a 400 error if parameter is not a valid comment id', () => {
       return request(app)
         .put('/api/comments/mango?vote=up')
-        .expect(404)
+        .expect(400)
         .then((res) => {
           const error = res.body.message;
           expect(error).to.equal('Comment not found');
@@ -251,10 +259,10 @@ describe('api', () => {
         .delete(`/api/comments/${usefulData.comments[0]._id}`)
         .expect(204);
     });
-    it('returns a 404 error if parameter is not a valid comment id', () => {
+    it('returns a 400 error if parameter is not a valid comment id', () => {
       return request(app)
         .delete('/api/comments/orange')
-        .expect(404)
+        .expect(400)
         .then((res) => {
           const error = res.body.message;
           expect(error).to.equal('Comment not found');
