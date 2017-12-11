@@ -1,4 +1,4 @@
-const {Users} = require('../models/models');
+const {Users} = require('../models');
 
 const getUserByUsername = (req, res, next) => {
   Users.findOne({username: req.params.username})

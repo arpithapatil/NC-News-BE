@@ -1,4 +1,4 @@
-const {Topics, Articles} = require('../models/models');
+const {Topics, Articles} = require('../models');
 
 
 const getAllTopics = (req, res, next) => {
