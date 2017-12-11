@@ -1,8 +1,8 @@
 const router = require('express').Router(); 
-const {voteCommentByCommentId,deleteCommentByCommentId} = require('../controllers');
+const {voteCommentById,deleteCommentById} = require('../controllers/commentsController');
 
 
-router.put('/:comment_id', voteCommentByCommentId);
-router.delete('/:comment_id', deleteCommentByCommentId);
+router.put('/:comment_id', voteCommentById);
+router.delete('/:comment_id', deleteCommentById);
 
 module.exports = router;

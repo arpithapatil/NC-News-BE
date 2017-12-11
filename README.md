@@ -4,7 +4,9 @@ This project is for creating an API for a reddit style news website using Node.j
 
 # SetUp
 
-You will need to have Node v7 and above installed on your system. To check if you have it installed type the following command in your terminal which will return your version.
+You will need Node.js v7.9.0 or later npm, git and MongoDB v3.2 or later installed before being able to run this project.
+
+To check if Node.js is installed on your machine open a terminal window and enter:
 
 ```
 node -v
@@ -15,17 +17,13 @@ npm -v
 ```
 If you do not have node or npm installed, follow this [guide](https://nodejs.org/en/download/package-manager/).
 
-You will need MongoDB installed and running in a terminal when using the API. To run in your terminal, type this command
-```
-mongod
-```
-If you do not have MongoDB installed, follow this [guide](https://www.mongodb.com/).
-
 You will also need git installed on your machine. To check that you have it installed type the following command
 ```
 git --version
 ```
 If you do not have it installed follow this [guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+If you do not have MongoDB already installed, please follow [this guide](https://docs.mongodb.com/manual/installation/)
 
 # Installation
 
@@ -38,10 +36,11 @@ then navigate into the folder and run
 npm install
 ```
 In a separate terminal run the following command to connect to the database and keep it running when running the server
+
 ```
 mongod
 ```
-then to populate the databse run 
+Open another terminal window, navigate inside the project folder and enter the following command to populate the database: 
 ```
 node seed/seed.js
 ```

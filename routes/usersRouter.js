@@ -1,6 +1,6 @@
 const router = require('express').Router(); 
-const {getProfileDataByUsername} = require('../controllers');
+const {getUserByUsername} = require('../controllers/usersController');
  
-router.get('/:username', getProfileDataByUsername);
+router.get('/:username', getUserByUsername);
 
 module.exports = router;
