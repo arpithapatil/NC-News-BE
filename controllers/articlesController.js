@@ -24,6 +24,7 @@ const getArticlesById = (req, res, next) => {
 const getCommentsByArticleId = (req, res, next) => {
   Comments.find({ belongs_to: req.params.article_id })
     .then(comments => {
+      console.log(comments);
       if (comments.length === 0) return next({ status: 404, message: 'Article not found' });
       res.status(200).send({ comments });
     })
