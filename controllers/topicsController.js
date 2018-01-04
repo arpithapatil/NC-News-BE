@@ -22,4 +22,5 @@ const getArticlesByTopic = (req, res, next) => {
 };
 
 
+
 module.exports = {getAllTopics, getArticlesByTopic};
