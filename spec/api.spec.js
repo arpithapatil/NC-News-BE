@@ -213,14 +213,14 @@ describe('api', () => {
     });
   });
   describe('PUT /api/comments/:comment_id?vote=down', () => {
-    it('decreses the number of votes for the comment selected and return a status code of 200', () => {
-      const votes = usefulData.comments[0].votes;
+    it('updates comment votes with down vote', () => {
+      const commentId = usefulData.comments[1]._id;
+      const prevVotes = usefulData.comments[1].votes;
       return request(app)
-        .put(`/api/comments/${usefulData.comments[0]._id}?vote=down`)
+        .put(`/api/comments/${commentId}?vote=down`)
         .expect(200)
-        .then(res => {
-          const newVotes = res.body.comment.votes;
-          expect(newVotes).to.equal(votes - 1);
+        .then((res) => {
+          expect(res.body.votes).to.equal(prevVotes - 1);
         });
     });
     it('returns a 400 error if parameter is not a valid comment id', () => {
@@ -234,14 +234,14 @@ describe('api', () => {
     });
   });
   describe('PUT /api/comments/:comment_id?vote=up', () => {
-    it('decreses the number of votes for the comment selected and return a status code of 200', () => {
-      const votes = usefulData.comments[0].votes;
+    it('updates comment votes with up vote', () => {
+      const commentId = usefulData.comments[0]._id;
+      const prevVotes = usefulData.comments[0].votes;
       return request(app)
-        .put(`/api/comments/${usefulData.comments[0]._id}?vote=up`)
+        .put(`/api/comments/${commentId}?vote=up`)
         .expect(200)
-        .then(res => {
-          const newVotes = res.body.comment.votes;
-          expect(newVotes).to.equal(votes + 1);
+        .then((res) => {
+          expect(res.body.votes).to.equal(prevVotes + 1);
         });
     });
     it('returns a 400 error if parameter is not a valid comment id', () => {
