@@ -255,10 +255,16 @@ describe('api', () => {
     });
   });
   describe('DELETE /api/comments/:comment_id', () => {
-    it('returns with a 204 status code', () => {
+    it('removes correct comment and status code', () => {
+      const commentId = usefulData.comments[0]._id;
+      const numComments = usefulData.comments.length;
       return request(app)
-        .delete(`/api/comments/${usefulData.comments[0]._id}`)
-        .expect(204);
+        .delete(`/api/comments/${commentId}`)
+        .query({ article_id: `${usefulData.comments[0].belongs_to}` })
+        .expect(200)
+        .then((res) => {
+          expect(res.body.length).to.equal(numComments-1);
+        });  
     });
     it('returns a 400 error if parameter is not a valid comment id', () => {
       return request(app)

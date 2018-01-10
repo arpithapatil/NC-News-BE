@@ -20,14 +20,15 @@ const voteCommentById = (req, res, next) => {
 
 const deleteCommentById = (req, res, next) => {
   Comments.findByIdAndRemove(req.params.comment_id)
-    .exec()
     .then(() => {
-      res.status(204).send();
+      Comments.find({belongs_to: req.query.article_id})
+        .then((comments) => {
+          res.send(comments);
+        });
     })
-    .catch(error => {
-      if (error.name === 'CastError') return next({ status: 400, message: 'Comment not found' });
-      next(error);
+    .catch((err) => {
+      if (err.name === 'CastError') return next({status: 400, message: 'Comment not found'});
+      next(err);
     });
 };
-
 module.exports = {voteCommentById, deleteCommentById};
