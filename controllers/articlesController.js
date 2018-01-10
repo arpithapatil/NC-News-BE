@@ -34,20 +34,25 @@ const getCommentsByArticleId = (req, res, next) => {
 };
 
 const postCommentsByArticleId = (req, res, next) => {
-  const postBody = req.body.comment;
-  const article_id = req.params.article_id;
-  if (/^\s*$/g.test(postBody)) return next({ status: 400, message: 'Provide comment body' });
-  const comment = new Comments({
-    body: postBody,
-    belongs_to: article_id
-  });
-  comment.save()
-    .then(comment => {
-      res.status(201).send({ comment });
+  if (req.body.comment === undefined) req.body.comment = 'new comment';
+  if(/^\s*$/.test(req.body.comment)) return next({status: 400, message: 'Provide comment body'});
+  
+  let newComment = {
+    body: req.body.comment,
+    belongs_to: req.params.article_id,
+    created_by: 'northcoder',
+    votes: 0,
+    created_at: Date.now()
+  };
+  Comments.create([newComment])
+    .then(() => {
+      return Comments.find({})
+        .then((comments) => {
+          res.send(comments);
+        });
     })
-    .catch(error => {
-      if(error.name === 'ValidationError')   next({status: 400, message: 'Comment not valid'});
-      next(error);
+    .catch((err) => {
+      return next(err);
     });
 };
 
