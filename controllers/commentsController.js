@@ -1,22 +1,20 @@
 const {Comments} = require('../models');
 
 const voteCommentById = (req, res, next) => {
-  const upOrDown = req.query.vote;
-  const vote = updateVoteCount(upOrDown);
-  Comments.findOneAndUpdate({_id: req.params.comment_id}, { $inc: { votes: vote } }, { new: true })
-    .then((comment) => {
-      if (comment.length === 0) return next({status: 404});
-      if (!req.body.article) res.send(comment);
-      else {
-        Comments.find({belongs_to: req.body.article_id})
-          .then((comments) => {
-            res.send(comments);
-          });
-      }
+  const comment_id = req.params.comment_id;
+  const query = req.query.vote;
+  let increment;
+
+  if (query === 'up') increment = 1;
+  else if (query === 'down') increment = -1;
+
+  Comments.findByIdAndUpdate(comment_id, { $inc: { votes: increment } }, { new: true })
+    .then(comment => {
+      res.send({ comment });
     })
-    .catch((err) => {
-      if (err.name === 'CastError') return next({status: 400, message: 'Comment not found'});
-      next(err);
+    .catch(error => {
+      if (error.name === 'CastError') return next({ status: 400, message: 'Comment not found' });
+      next(error);
     });
 };
 
@@ -34,8 +32,5 @@ const deleteCommentById = (req, res, next) => {
     });
 };
 
-function updateVoteCount (vote) {
-  if (vote === 'up') return 1;
-  else if (vote === 'down') return -1;
-}
+
 module.exports = {voteCommentById, deleteCommentById};
