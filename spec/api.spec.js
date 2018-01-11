@@ -192,7 +192,7 @@ describe('api', () => {
     });
   });
   describe('PUT /api/articles/:article_id?vote=up', () => {
-    it('decreses the number of votes for the article selected and return a status code of 200', () => {
+    it('increases the number of votes for the article selected and return a status code of 200', () => {
       const votes = usefulData.articles[0].votes;
       return request(app)
         .put(`/api/articles/${usefulData.articles[0]._id}?vote=up`)
