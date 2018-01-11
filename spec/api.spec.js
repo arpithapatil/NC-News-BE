@@ -213,44 +213,44 @@ describe('api', () => {
     });
   });
   describe('PUT /api/comments/:comment_id?vote=down', () => {
-    it('decreses the number of votes for the comment selected and return a status code of 200', () => {
-      const votes = usefulData.comments[0].votes;
+  
+    it('updates comment votes with down vote', () => {
+      const commentId = usefulData.comments[1]._id;
+      const prevVotes = usefulData.comments[1].votes;
       return request(app)
-        .put(`/api/comments/${usefulData.comments[0]._id}?vote=down`)
+        .put(`/api/comments/${commentId}?vote=down`)
         .expect(200)
-        .then(res => {
-          const newVotes = res.body.votes;
-          expect(newVotes).to.equal(votes - 1);
+        .then((res) => {
+          expect(res.body.votes).to.equal(prevVotes - 1);
         });
     });
-    it('returns a 400 error if parameter is not a valid comment id', () => {
+    it('returns correct status code for invalid comment id', () => {
       return request(app)
-        .put('/api/comments/apple?vote=down')
+        .put('/api/comments/123?vote=down')
         .expect(400)
         .then((res) => {
-          const error = res.body.message;
-          expect(error).to.equal('Comment not found');
+          expect(res.body.message).to.equal('Invalid comment ID');
         });
     });
   });
+    
   describe('PUT /api/comments/:comment_id?vote=up', () => {
-    it('increases the number of votes for the comment selected and return a status code of 200', () => {
-      const votes = usefulData.comments[0].votes;
+    it('updates comment votes with up vote', () => {
+      const commentId = usefulData.comments[0]._id;
+      const prevVotes = usefulData.comments[0].votes;
       return request(app)
-        .put(`/api/comments/${usefulData.comments[0]._id}?vote=up`)
+        .put(`/api/comments/${commentId}?vote=up`)
         .expect(200)
-        .then(res => {
-          const newVotes = res.body.votes;
-          expect(newVotes).to.equal(votes + 1);
+        .then((res) => {
+          expect(res.body.votes).to.equal(prevVotes + 1);
         });
     });
-    it('returns a 400 error if parameter is not a valid comment id', () => {
+    it('returns correct status code for invalid comment id', () => {
       return request(app)
-        .put('/api/comments/mango?vote=up')
+        .put('/api/comments/123?vote=down')
         .expect(400)
         .then((res) => {
-          const error = res.body.message;
-          expect(error).to.equal('Comment not found');
+          expect(res.body.message).to.equal('Invalid comment ID');
         });
     });
   });
