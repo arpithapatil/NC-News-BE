@@ -109,7 +109,7 @@ describe('api', () => {
         .get(`/api/articles/${usefulData.articles[0]._id}/comments`)
         .expect(200)
         .then((res) => {
-          const comments = res.body.comments;
+          const comments = res.body;
           expect(comments).to.be.an('array');
           expect(comments[0].belongs_to).to.equal(article_id.toString());
           expect(comments[0].created_by).to.equal(usefulData.comments[0].created_by);
