@@ -219,7 +219,7 @@ describe('api', () => {
         .put(`/api/comments/${usefulData.comments[0]._id}?vote=down`)
         .expect(200)
         .then(res => {
-          const newVotes = res.body.comment.votes;
+          const newVotes = res.body.votes;
           expect(newVotes).to.equal(votes - 1);
         });
     });
@@ -240,7 +240,7 @@ describe('api', () => {
         .put(`/api/comments/${usefulData.comments[0]._id}?vote=up`)
         .expect(200)
         .then(res => {
-          const newVotes = res.body.comment.votes;
+          const newVotes = res.body.votes;
           expect(newVotes).to.equal(votes + 1);
         });
     });

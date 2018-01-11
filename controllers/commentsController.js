@@ -9,9 +9,18 @@ const voteCommentById = (req, res, next) => {
   else if (query === 'down') increment = -1;
 
   Comments.findByIdAndUpdate(comment_id, { $inc: { votes: increment } }, { new: true })
-    .then(comment => {
-      res.send({ comment });
+  .then((comment) => {
+    if (comment.length === 0) return next({status: 404});
+    if (!req.body.article) res.send(comment);
+    else {
+        Comments.find({belongs_to: req.body.article_id})
+        .then((comments) => {
+            res.send(comments);
+        })
+      }
     })
+
+
     .catch(error => {
       if (error.name === 'CastError') return next({ status: 400, message: 'Comment not found' });
       next(error);
