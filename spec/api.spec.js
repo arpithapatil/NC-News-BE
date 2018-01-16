@@ -53,7 +53,7 @@ describe('api', () => {
         .get(`/api/topics/${usefulData.topics[2].slug}/articles`)
         .expect(200)
         .then(res => {
-          const articles = res.body.articles;
+          const articles = res.body;
           expect(articles).to.be.an('array');
           expect(articles[0].belongs_to).to.equal(usefulData.topics[2].slug);
           expect(articles[0].title).to.equal(usefulData.articles[0].title);
