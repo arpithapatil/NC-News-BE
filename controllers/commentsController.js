@@ -10,7 +10,7 @@ const voteCommentById = (req, res, next) => {
       else {
         Comments.find({belongs_to: req.body.article_id})
           .then((comments) => {
-         
+            console.log(comments);
             res.send(comments);
           });
       }

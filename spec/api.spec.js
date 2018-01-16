@@ -75,20 +75,23 @@ describe('api', () => {
         .get('/api/articles')
         .expect(200)
         .then(res => {
-          expect(res.body.articles).to.be.an('array');
-          expect(res.body.articles.length).to.equal(usefulData.articles.length);
-          expect(res.body.articles[0].belongs_to).to.be.a('string');
+          expect(res.body.length).to.equal(usefulData.articles.length);
+          res.body.forEach(article => {
+            expect(article.belongs_to).to.be.oneOf([usefulData.articles[0].belongs_to, usefulData.articles[1].belongs_to]);
+            expect(article.title).to.be.oneOf([usefulData.articles[0].title, usefulData.articles[1].title]);
+          });
         });
     });
   });
   describe('GET /api/articles/:article_id', () => {
     it('returns the correct article', () => {
+      const articleId = usefulData.articles[0]._id;
       return request(app)
         .get(`/api/articles/${usefulData.articles[0]._id}`)
         .expect(200)
         .then( res => {
-          expect(res.body.article[0]).to.be.an('object');
-          expect(res.body.article[0].title).to.equal(usefulData.articles[0].title);
+          expect(res.body.length).to.equal(1);
+          expect(res.body[0]._id).to.equal(articleId.toString());
         });
     });
     it('returns a 404 error status code if parameter is not a valid article_id', () => {
@@ -158,17 +161,6 @@ describe('api', () => {
           expect(error).to.equal('Provide comment body');
         });
     });
-    // it('returns with a 400 status code if posting with no comment', () => {
-    //   const article_id = usefulData.articles[0]._id;
-    //   return request(app)
-    //     .post(`/api/articles/${article_id}/comments`)
-    //     .send({})
-    //     .expect(400)
-    //     .then(res => {
-    //       const {message} = res.body;
-    //       expect(message).to.equal('Comment not valid');
-    //     });
-    // });
   });
   describe('PUT /api/articles/:article_id?vote=down', () => {
     it('decreses the number of votes for the article selected and return a status code of 200', () => {
@@ -247,7 +239,7 @@ describe('api', () => {
     });
     it('returns correct status code for invalid comment id', () => {
       return request(app)
-        .put('/api/comments/123?vote=down')
+        .put('/api/comments/123?vote=up')
         .expect(400)
         .then((res) => {
           expect(res.body.message).to.equal('Invalid comment ID');
@@ -298,3 +290,5 @@ describe('api', () => {
     });
   });
 });
+
+
